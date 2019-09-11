@@ -1,0 +1,16 @@
+
+
+
+Rodar os seguites comandos antes de usar a aplicação
+
+yarn add express
+
+yarn add body-parser
+
+yarn add mongoose
+
+
+instalar fs e path
+
+instalar nodemailer
+instalar nodemailer-express-handlebars	
