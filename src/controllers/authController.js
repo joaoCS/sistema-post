@@ -153,6 +153,14 @@ module.exports = {
         return res.send( user );
     },
 
+    async checkToken(req, res) {
+        const user = await User.findById(req.userId);
+        if (!user) 
+            return res.status(400).send({ error: 'User not found!' });
+
+        return res.send(user);
+    },
+
     async update(req, res){
         
     },

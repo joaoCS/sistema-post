@@ -11,11 +11,12 @@ module.exports = {
 
             const posts = await Post.find({}).populate(['user', 'comments']);
 
-            return res.send({ posts });
+            return res.send(posts);
 
 
         }
         catch(err) {
+            console.log(err);
             return res.status(400).send({ error: 'Erro ao buscar posts' });
         }
     },

@@ -30,4 +30,12 @@ router.post('/comment', authMiddleware, CommentController.store);
 router.get('/user/:userId', AuthController.show);
 
 
+
+/*
+	Serve para verificar se o token enviado é válido. Caso seja válido, ele passa pelo middleware sem dar erro
+	e busca os dados do usuário logado em checkToken para retornar para o front-end.
+*/
+router.get('/checktoken', authMiddleware, AuthController.checkToken);
+
+
 module.exports = router;
