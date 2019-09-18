@@ -9,8 +9,8 @@ yarn add body-parser
 
 yarn add mongoose
 
+yarn add fs path
 
-instalar fs e path
+yarn add nodemailer
 
-instalar nodemailer
-instalar nodemailer-express-handlebars	
+yarn add nodemailer-express-handlebars	
