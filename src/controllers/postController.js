@@ -23,9 +23,9 @@ module.exports = {
 
     async store(req, res) {
         try{
-            const { title, image } = req.body;
+            const { title, image, image_name } = req.body;
 
-            const post = await Post.create({ title, image, user: req.userId });
+            const post = await Post.create({ title, image, image_name, user: req.userId });
 
             return res.send({ post });
 
@@ -39,7 +39,7 @@ module.exports = {
         try{
             const post = await Post.findById(req.params.postId).populate(['user', 'comments']);
 
-            return res.send({ post });
+            return res.send(post);
         }
         catch(err) {
             console.log(err);
@@ -51,15 +51,27 @@ module.exports = {
         try{
             const { title, image } = req.body;
 
-            const post = await Post.findByIdAndUpdate(req.params.postId, {
-                title,
-                image
-            }, { new:true });
 
-            return res.send({ post });
 
+            const post = await Post.findById(req.params.postId);
+
+            if (String(post.user) === req.userId) {
+
+                post.title = title;
+                post.image = image;
+
+                post.save();
+
+                return res.send(post);
+            }
+            else {
+
+                return res.status(401).send({ error: 'Sem autorizacao para atualizar post' });
+            }
+            
         }
         catch(err) {
+            console.log(err);
             return res.status(400).send({ error: 'Erro ao criar post' });
         }
     },
@@ -67,7 +79,18 @@ module.exports = {
     async destroy(req, res){
         try {
 
-            await Post.findByIdAndRemove(req.params.postId);
+            const post = await Post.findById(req.params.postId);
+
+
+            if (String(post.user) === req.userId) {
+
+                await Post.findByIdAndRemove(req.params.postId);               
+
+            }
+            else {
+
+                return res.status(401).send({ error: 'Sem autorizacao para remover post' });
+            }
 
             return res.send();
 

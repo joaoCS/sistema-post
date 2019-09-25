@@ -17,7 +17,7 @@ module.exports = {
 
         	await post.save();
 
-        	return res.send({ comment });
+        	return res.send(comment);
         }
         catch(err) {
         	return res.status(400).send({ error: 'Erro ao criar comentario.' });
