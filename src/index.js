@@ -26,4 +26,4 @@ requireDir('./models');
 app.use('/api', routes);
 
 
-app.listen(3001);	
+app.listen(process.env.PORT  || 3001);	
